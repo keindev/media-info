@@ -50,6 +50,8 @@
         "SPDX",
         "plusplus",
         "cond",
-        "mediainfo"
+        "mediainfo",
+        "globby",
+        "gitignore"
     ]
 }

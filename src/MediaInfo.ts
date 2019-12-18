@@ -1,4 +1,10 @@
+import path from 'path';
+import globby from 'globby';
+import readPkg from 'read-pkg';
+import gh from 'parse-github-url';
+import figures from 'figures';
 import { UpdateManager } from 'stdout-update';
+import { IFileInfo } from './types/Data';
 
 const manager = UpdateManager.getInstance();
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
@@ -10,16 +16,41 @@ export class MediaInfo {
     private frameIndex = 0;
 
     constructor(dir: string) {
-        this.dir = dir;
+        this.dir = path.relative(process.cwd(), dir);
+    }
+
+    public static getFileInfo(filePath: string, git: gh.Result): IFileInfo {
+        return {
+            source: `https://${git.hostname}/${git.repo}/${filePath}`,
+            cdn: `https://cdn.jsdelivr.net/gh/${git.repo}/${filePath}`,
+        };
     }
 
     public async generate(): Promise<void> {
         this.start();
-        // eslint-disable-next-line no-console
-        console.log(this.dir);
-        this.end();
 
-        return Promise.resolve();
+        try {
+            const paths = await globby([`${this.dir}/**/*.*`], { gitignore: false });
+            const pkg = await readPkg({ normalize: false });
+            const url = typeof pkg.repository === 'object' ? pkg.repository.url : pkg.repository;
+            const git = gh(url);
+
+            if (paths.length) {
+                console.log(
+                    paths.reduce(
+                        (acc, filePath) => ({
+                            ...acc,
+                            [path.parse(filePath).name]: MediaInfo.getFileInfo(filePath, git),
+                        }),
+                        {}
+                    )
+                );
+            }
+
+            this.end();
+        } catch (error) {
+            this.error(error);
+        }
     }
 
     private start(): void {
@@ -31,12 +62,17 @@ export class MediaInfo {
         }, 80);
     }
 
-    private end(): void {
+    private end(msg = [`${figures.tick} .mediainfo created!`, '']): void {
         if (this.timer) {
             clearInterval(this.timer);
-
-            manager.update(['✔ .mediainfo created!', ''], 0);
+            manager.update(msg, 0);
             manager.unhook(false);
         }
+    }
+
+    private error(error: Error): never {
+        this.end([`${figures.cross} Error!`]);
+
+        throw error;
     }
 }
