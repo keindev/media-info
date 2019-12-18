@@ -1,0 +1,66 @@
+{
+    "name": "media-info",
+    "version": "0.1.0",
+    "description": "CLI util for generating project .mediainfo file with CDN links",
+    "homepage": "https://github.com/keindev/media-info#readme",
+    "keywords": [
+        "automated",
+        "media",
+        "info",
+        "cli"
+    ],
+    "main": "lib/mediainfo.js",
+    "module": "lib/mediainfo.js",
+    "types": "lib/mediainfo.d.ts",
+    "bin": {
+        "changelog-guru": "bin/mediainfo",
+        "changelog": "bin/mediainfo"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/keindev/media-info.git"
+    },
+    "bugs": {
+        "url": "https://github.com/keindev/media-info/issues"
+    },
+    "author": {
+        "name": "Daniil Ryazanov",
+        "email": "kein@tagproject.ru"
+    },
+    "license": "MIT",
+    "scripts": {
+        "clean": "rimraf lib coverage",
+        "lint": "eslint src/**/*.ts --fix",
+        "spellcheck": "cspell -c .vscode/cspell.json --no-summary \"*.*\" \"docs/**/*\" \"**/*.ts\" \"**/*.js\"",
+        "test": "jest",
+        "build:ts": "tsc",
+        "build": "npm-run-all clean spellcheck lint test build:*"
+    },
+    "engines": {
+        "node": ">=10.0.0"
+    },
+    "dependencies": {
+        "stdout-update": "^1.3.7",
+        "yargs": "^15.0.2"
+    },
+    "devDependencies": {
+        "@types/jest": "^24.0.24",
+        "@types/node": "^12.12.21",
+        "@types/yargs": "^13.0.3",
+        "@typescript-eslint/eslint-plugin": "^2.12.0",
+        "@typescript-eslint/parser": "^2.12.0",
+        "changelog-guru": "^1.0.0",
+        "cspell": "^4.0.37",
+        "eslint": "^6.7.2",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-config-prettier": "^6.7.0",
+        "eslint-plugin-import": "^2.19.1",
+        "eslint-plugin-jest": "^23.1.1",
+        "husky": "^3.1.0",
+        "jest": "^24.9.0",
+        "npm-run-all": "^4.1.5",
+        "prettier": "^1.19.1",
+        "ts-jest": "^24.2.0",
+        "typescript": "3.7.3"
+    }
+}
