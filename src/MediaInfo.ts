@@ -1,10 +1,11 @@
 import path from 'path';
+import fs from 'fs';
 import globby from 'globby';
 import readPkg from 'read-pkg';
 import gh from 'parse-github-url';
 import figures from 'figures';
 import { UpdateManager } from 'stdout-update';
-import { IFileInfo } from './types/Data';
+import { IMediaInfoData, IFileInfo } from './types/Data';
 
 const manager = UpdateManager.getInstance();
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
@@ -19,11 +20,39 @@ export class MediaInfo {
         this.dir = path.relative(process.cwd(), dir);
     }
 
-    public static getFileInfo(filePath: string, git: gh.Result): IFileInfo {
+    public static getFileInfo(filePath: string, repo: string): IFileInfo {
         return {
-            source: `https://${git.hostname}/${git.repo}/${filePath}`,
-            cdn: `https://cdn.jsdelivr.net/gh/${git.repo}/${filePath}`,
+            source: `https://github.com/${repo}/${filePath}`,
+            cdn: `https://cdn.jsdelivr.net/gh/${repo}/${filePath}`,
         };
+    }
+
+    public static build(paths: string[], repo: string): IMediaInfoData {
+        const map: Map<string, IFileInfo> = new Map();
+        let info: IFileInfo | undefined;
+        let newInfo: IFileInfo;
+        let name: string;
+        let extname: string;
+
+        paths.forEach(filePath => {
+            name = path.parse(filePath).name;
+            info = map.get(name);
+            newInfo = MediaInfo.getFileInfo(filePath, repo);
+
+            if (info) {
+                extname = path.extname(filePath).slice(1);
+
+                if (info.alt) {
+                    info.alt = { ...info.alt, [extname]: newInfo };
+                } else {
+                    map.set(name, { ...info, alt: { [extname]: newInfo } });
+                }
+            } else {
+                map.set(name, newInfo);
+            }
+        });
+
+        return Object.fromEntries(map);
     }
 
     public async generate(): Promise<void> {
@@ -33,21 +62,25 @@ export class MediaInfo {
             const paths = await globby([`${this.dir}/**/*.*`], { gitignore: false });
             const pkg = await readPkg({ normalize: false });
             const url = typeof pkg.repository === 'object' ? pkg.repository.url : pkg.repository;
-            const git = gh(url);
 
-            if (paths.length) {
-                console.log(
-                    paths.reduce(
-                        (acc, filePath) => ({
-                            ...acc,
-                            [path.parse(filePath).name]: MediaInfo.getFileInfo(filePath, git),
-                        }),
-                        {}
-                    )
-                );
+            if (url) {
+                const git = gh(url);
+
+                if (git && git.repo) {
+                    if (paths.length) {
+                        await fs.promises.writeFile(
+                            path.relative(process.cwd(), '.mediainfo'),
+                            JSON.stringify(MediaInfo.build(paths, git.repo), null, 4)
+                        );
+                    }
+
+                    this.end();
+                } else {
+                    throw new Error('Invalid package repository url!');
+                }
+            } else {
+                throw new Error('Package repository is not defined!');
             }
-
-            this.end();
         } catch (error) {
             this.error(error);
         }
@@ -62,7 +95,7 @@ export class MediaInfo {
         }, 80);
     }
 
-    private end(msg = [`${figures.tick} .mediainfo created!`, '']): void {
+    private end(msg = [`${figures.tick} .mediainfo created!`]): void {
         if (this.timer) {
             clearInterval(this.timer);
             manager.update(msg, 0);
