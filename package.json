@@ -7,14 +7,16 @@
         "automated",
         "media",
         "info",
-        "cli"
+        "cli",
+        "cdn",
+        "github",
+        "jsdelivr"
     ],
     "main": "lib/mediainfo.js",
     "module": "lib/mediainfo.js",
     "types": "lib/mediainfo.d.ts",
     "bin": {
-        "changelog-guru": "bin/mediainfo",
-        "changelog": "bin/mediainfo"
+        "mediainfo": "bin/mediainfo"
     },
     "repository": {
         "type": "git",
@@ -34,6 +36,7 @@
         "spellcheck": "cspell -c .vscode/cspell.json --no-summary \"*.*\" \"docs/**/*\" \"**/*.ts\" \"**/*.js\"",
         "test": "jest",
         "build:ts": "tsc",
+        "build:mediainfo": "node bin/mediainfo generate -d src",
         "build": "npm-run-all clean spellcheck lint test build:*"
     },
     "engines": {
