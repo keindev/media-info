@@ -36,7 +36,7 @@
         "spellcheck": "cspell -c .vscode/cspell.json --no-summary \"*.*\" \"docs/**/*\" \"**/*.ts\" \"**/*.js\"",
         "test": "jest",
         "build:ts": "tsc",
-        "build:mediainfo": "node bin/mediainfo generate -d src",
+        "build:mediainfo": "node bin/mediainfo generate -d media",
         "build": "npm-run-all clean spellcheck lint test build:*"
     },
     "engines": {
