@@ -1,1 +1,13 @@
-{}
+{
+    "name": "media-info",
+    "version": "0.2.0",
+    "description": "CLI utility for creating .mediainfo with full repository information",
+    "repo": "keindev/media-info",
+    "type": "",
+    "links": {
+        "git": "https://github.com/keindev/media-info",
+        "npm": "https://www.npmjs.com/package/media-info",
+        "homepage": "https://github.com/keindev/media-info#readme"
+    },
+    "files": {}
+}

@@ -1,20 +1,18 @@
 {
     "name": "media-info",
     "version": "0.2.0",
-    "description": "CLI util for generating project .mediainfo file with CDN links",
+    "description": "CLI utility for creating .mediainfo with full repository information",
     "homepage": "https://github.com/keindev/media-info#readme",
     "keywords": [
         "automated",
         "media",
         "info",
         "cli",
-        "cdn",
-        "github",
-        "jsdelivr"
+        "github"
     ],
-    "main": "lib/mediainfo.js",
-    "module": "lib/mediainfo.js",
-    "types": "lib/mediainfo.d.ts",
+    "main": "lib/MediaInfo.js",
+    "module": "lib/MediaInfo.js",
+    "types": "lib/MediaInfo.d.ts",
     "bin": {
         "mediainfo": "bin/mediainfo"
     },
@@ -33,14 +31,14 @@
     "scripts": {
         "clean": "rimraf lib coverage",
         "lint": "eslint src/**/*.ts --fix",
-        "spellcheck": "cspell -c .vscode/cspell.json --no-summary \"*.*\" \"docs/**/*\" \"**/*.ts\" \"**/*.js\"",
+        "spellcheck": "cspell -c .vscode/cspell.json --no-summary \"*.*\" \"**/*.ts\" \"**/*.js\"",
         "test": "jest",
         "build:ts": "tsc",
         "build:mediainfo": "node bin/mediainfo generate -d media",
         "build": "npm-run-all clean spellcheck lint test build:*"
     },
     "engines": {
-        "node": ">=10.0.0"
+        "node": ">=12.0.0"
     },
     "dependencies": {
         "@types/parse-github-url": "^1.0.0",
