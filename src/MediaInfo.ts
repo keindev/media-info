@@ -1,58 +1,49 @@
 import path from 'path';
 import fs from 'fs';
 import globby from 'globby';
-import readPkg from 'read-pkg';
+import readPkg, { PackageJson } from 'read-pkg';
 import gh from 'parse-github-url';
 import figures from 'figures';
 import { UpdateManager } from 'stdout-update';
-import { IMediaInfoData, IFileInfo } from './types/Data';
 
 const manager = UpdateManager.getInstance();
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 
+export enum MediaFiles {
+    Icon = 'icon',
+    Logo = 'logo',
+    Demo = 'demo',
+    Preview = 'social-preview',
+}
+
+export interface ILinks {
+    git?: string;
+    npm?: string;
+    homepage?: string;
+}
+
+export interface IMediaInfo {
+    name: string;
+    repo: string;
+    version: string;
+    type?: string;
+    description: string;
+    links: ILinks;
+    files: {
+        [key in MediaFiles]?: string;
+    };
+}
+
 export class MediaInfo {
     private dir: string;
+    private type: string;
     private message = '';
     private timer: NodeJS.Timeout | null = null;
     private frameIndex = 0;
 
-    constructor(dir: string) {
+    constructor(dir: string, type: string) {
         this.dir = path.relative(process.cwd(), dir);
-    }
-
-    public static getFileInfo(filePath: string, repo: string): IFileInfo {
-        return {
-            source: `https://github.com/${repo}/${filePath}`,
-            cdn: `https://cdn.jsdelivr.net/gh/${repo}/${filePath}`,
-        };
-    }
-
-    public static build(paths: string[], repo: string): IMediaInfoData {
-        const map: Map<string, IFileInfo> = new Map();
-        let info: IFileInfo | undefined;
-        let newInfo: IFileInfo;
-        let name: string;
-        let extname: string;
-
-        paths.forEach(filePath => {
-            name = path.parse(filePath).name;
-            info = map.get(name);
-            newInfo = MediaInfo.getFileInfo(filePath, repo);
-
-            if (info) {
-                extname = path.extname(filePath).slice(1);
-
-                if (info.alt) {
-                    info.alt = { ...info.alt, [extname]: newInfo };
-                } else {
-                    map.set(name, { ...info, alt: { [extname]: newInfo } });
-                }
-            } else {
-                map.set(name, newInfo);
-            }
-        });
-
-        return Object.fromEntries(map);
+        this.type = type;
     }
 
     public async generate(): Promise<void> {
@@ -70,7 +61,7 @@ export class MediaInfo {
                     if (paths.length) {
                         await fs.promises.writeFile(
                             path.relative(process.cwd(), '.mediainfo'),
-                            JSON.stringify(MediaInfo.build(paths, git.repo), null, 4)
+                            JSON.stringify(this.build(paths, pkg, git.repo), null, 4)
                         );
                     }
 
@@ -79,11 +70,38 @@ export class MediaInfo {
                     throw new Error('Invalid package repository url!');
                 }
             } else {
-                throw new Error('Package repository is not defined!');
+                throw new Error('Package repository is undefined!');
             }
         } catch (error) {
             this.error(error);
         }
+    }
+
+    public build(paths: string[], pkg: PackageJson, repo: string): IMediaInfo {
+        const { name, version, description, homepage } = pkg;
+        const availableFiles = Object.values(MediaFiles);
+
+        if (!name) throw new Error('Package name is undefined!');
+        if (!version) throw new Error('Package name is undefined!');
+        if (!description) throw new Error('Package name is undefined!');
+
+        return {
+            name,
+            version,
+            description,
+            repo,
+            type: this.type,
+            links: {
+                git: `https://github.com/${repo}`,
+                ...(pkg.isPrivate ? {} : { npm: `https://www.npmjs.com/package/${name}` }),
+                ...(homepage ? { homepage } : {}),
+            },
+            files: paths.reduce((acc, filePath) => {
+                const { name: fileName } = path.parse(filePath);
+
+                return ~availableFiles.indexOf(fileName as MediaFiles) ? { ...acc, [fileName]: filePath } : acc;
+            }, {}),
+        };
     }
 
     private start(): void {

@@ -6,19 +6,27 @@ export const alias = 'g';
 export const desc = 'Generate .mediainfo file';
 export const showInHelp = true;
 export const builder = {
-    dir: {
+    media: {
         string: true,
-        alias: 'd',
+        alias: 'm',
         description: 'Directory with media files',
+        default: 'media',
+    },
+    type: {
+        string: true,
+        alias: 't',
+        description: 'Repository content type',
+        default: '',
     },
 };
 
 interface IArguments {
-    dir: string;
+    media: string;
+    type: string;
 }
 
 export const handler = (argv: Arguments<IArguments>): Promise<void> => {
-    const mediainfo = new MediaInfo(argv.dir);
+    const mediainfo = new MediaInfo(argv.media, argv.type);
 
     return mediainfo.generate();
 };

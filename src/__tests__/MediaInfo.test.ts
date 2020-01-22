@@ -1,36 +1,31 @@
 import { MediaInfo } from '../MediaInfo';
 
 const repo = 'keindev/media-info';
+const type = 'test';
 const paths = ['media/logo.svg', 'media/logo.jpg', 'media/social-preview.png'];
+let builder: MediaInfo;
 
 describe('MediaInfo', () => {
     describe('Generate .mediainfo file', () => {
-        it('Create file info', () => {
-            const info = MediaInfo.getFileInfo(paths[0], repo);
-
-            expect(info).toStrictEqual({
-                source: `https://github.com/${repo}/${paths[0]}`,
-                cdn: `https://cdn.jsdelivr.net/gh/${repo}/${paths[0]}`,
-            });
+        beforeEach(() => {
+            builder = new MediaInfo(process.cwd(), type);
         });
 
         it('Build media info structure', () => {
-            const info = MediaInfo.build(paths, repo);
+            const pkg = { name: 'media-info', version: '1.0.0', description: 'test' };
+            const info = builder.build(paths, pkg, repo);
 
             expect(info).toStrictEqual({
-                logo: {
-                    source: `https://github.com/${repo}/${paths[0]}`,
-                    cdn: `https://cdn.jsdelivr.net/gh/${repo}/${paths[0]}`,
-                    alt: {
-                        jpg: {
-                            source: `https://github.com/${repo}/${paths[1]}`,
-                            cdn: `https://cdn.jsdelivr.net/gh/${repo}/${paths[1]}`,
-                        },
-                    },
+                ...pkg,
+                repo,
+                type,
+                links: {
+                    git: `https://github.com/${repo}`,
+                    npm: `https://www.npmjs.com/package/${pkg.name}`,
                 },
-                'social-preview': {
-                    source: `https://github.com/${repo}/${paths[2]}`,
-                    cdn: `https://cdn.jsdelivr.net/gh/${repo}/${paths[2]}`,
+                files: {
+                    logo: 'media/logo.jpg',
+                    'social-preview': 'media/social-preview.png',
                 },
             });
         });
