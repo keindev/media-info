@@ -1,6 +1,6 @@
 {
     "name": "media-info",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "CLI util for generating a GitHub project information file",
     "homepage": "https://github.com/keindev/media-info#readme",
     "keywords": [
