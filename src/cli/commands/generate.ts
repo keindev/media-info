@@ -2,13 +2,12 @@ import { Arguments } from 'yargs';
 import { MediaInfo } from '../../MediaInfo';
 
 export const command = 'generate';
-export const alias = 'g';
 export const desc = 'Generate .mediainfo file';
 export const showInHelp = true;
 export const builder = {
-    media: {
+    dir: {
         string: true,
-        alias: 'm',
+        alias: 'd',
         description: 'Directory with media files',
         default: 'media',
     },
@@ -21,12 +20,12 @@ export const builder = {
 };
 
 interface IArguments {
-    media: string;
+    dir: string;
     type: string;
 }
 
-export const handler = (argv: Arguments<IArguments>): Promise<void> => {
-    const mediainfo = new MediaInfo(argv.media, argv.type);
+export const handler = ({ dir, type }: Arguments<IArguments>): Promise<void> => {
+    const mediainfo = new MediaInfo(dir, type);
 
     return mediainfo.generate();
 };
