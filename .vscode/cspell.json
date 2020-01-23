@@ -21,17 +21,19 @@
         "yml"
     ],
     "ignorePaths": [
-        "**/package-lock.json",
-        "**/package.json",
-        "**/yarn.lock",
-        "**/node_modules/**",
-        "**/vscode-extension/**",
+        "**/__generated__/**",
         "**/.git/**",
         "**/.vscode/**",
-        "**/.yarnclean",
-        "**/tsconfig.json",
+        "**/docs/**",
+        "**/node_modules/**",
+        ".yarnclean",
+        ".travis.yml",
         "CHANGELOG.md",
-        "LICENSE"
+        "tsconfig.json",
+        "LICENSE",
+        "package-lock.json",
+        "package.json",
+        "yarn.lock"
     ],
     "words": [
         "deepmerge",
@@ -50,6 +52,8 @@
         "SPDX",
         "plusplus",
         "cond",
-        "mediainfo"
+        "mediainfo",
+        "globby",
+        "gitignore"
     ]
 }

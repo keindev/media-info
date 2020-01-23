@@ -1,25 +1,107 @@
+import path from 'path';
+import fs from 'fs';
+import globby from 'globby';
+import readPkg, { PackageJson } from 'read-pkg';
+import gh from 'parse-github-url';
+import figures from 'figures';
 import { UpdateManager } from 'stdout-update';
 
 const manager = UpdateManager.getInstance();
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 
+export enum MediaFiles {
+    Icon = 'icon',
+    Logo = 'logo',
+    Demo = 'demo',
+    Preview = 'social-preview',
+}
+
+export interface ILinks {
+    git?: string;
+    npm?: string;
+    homepage?: string;
+}
+
+export interface IMediaInfo {
+    name: string;
+    repo: string;
+    version: string;
+    type?: string;
+    description: string;
+    links: ILinks;
+    files: {
+        [key in MediaFiles]?: string;
+    };
+}
+
 export class MediaInfo {
     private dir: string;
+    private type: string;
     private message = '';
     private timer: NodeJS.Timeout | null = null;
     private frameIndex = 0;
 
-    constructor(dir: string) {
-        this.dir = dir;
+    constructor(dir: string, type: string) {
+        this.dir = path.relative(process.cwd(), dir);
+        this.type = type;
     }
 
     public async generate(): Promise<void> {
         this.start();
-        // eslint-disable-next-line no-console
-        console.log(this.dir);
-        this.end();
 
-        return Promise.resolve();
+        try {
+            const paths = await globby([`${this.dir}/**/*.*`], { gitignore: false });
+            const pkg = await readPkg({ normalize: false });
+            const url = typeof pkg.repository === 'object' ? pkg.repository.url : pkg.repository;
+
+            if (url) {
+                const git = gh(url);
+
+                if (git && git.repo) {
+                    if (paths.length) {
+                        await fs.promises.writeFile(
+                            path.relative(process.cwd(), '.mediainfo'),
+                            JSON.stringify(this.build(paths, pkg, git.repo), null, 4)
+                        );
+                    }
+
+                    this.end();
+                } else {
+                    throw new Error('Invalid package repository url!');
+                }
+            } else {
+                throw new Error('Package repository is undefined!');
+            }
+        } catch (error) {
+            this.error(error);
+        }
+    }
+
+    public build(paths: string[], pkg: PackageJson, repo: string): IMediaInfo {
+        const { name, version, description, homepage } = pkg;
+        const availableFiles = Object.values(MediaFiles);
+
+        if (!name) throw new Error('Package name is undefined!');
+        if (!version) throw new Error('Package name is undefined!');
+        if (!description) throw new Error('Package name is undefined!');
+
+        return {
+            name,
+            version,
+            description,
+            repo,
+            type: this.type,
+            links: {
+                git: `https://github.com/${repo}`,
+                ...(pkg.isPrivate ? {} : { npm: `https://www.npmjs.com/package/${name}` }),
+                ...(homepage ? { homepage } : {}),
+            },
+            files: paths.reduce((acc, filePath) => {
+                const { name: fileName } = path.parse(filePath);
+
+                return ~availableFiles.indexOf(fileName as MediaFiles) ? { ...acc, [fileName]: filePath } : acc;
+            }, {}),
+        };
     }
 
     private start(): void {
@@ -31,12 +113,17 @@ export class MediaInfo {
         }, 80);
     }
 
-    private end(): void {
+    private end(msg = [`${figures.tick} .mediainfo created!`]): void {
         if (this.timer) {
             clearInterval(this.timer);
-
-            manager.update(['✔ .mediainfo created!', ''], 0);
+            manager.update(msg, 0);
             manager.unhook(false);
         }
+    }
+
+    private error(error: Error): never {
+        this.end([`${figures.cross} Error!`]);
+
+        throw error;
     }
 }

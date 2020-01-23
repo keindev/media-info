@@ -1,0 +1,16 @@
+{
+    "name": "media-info",
+    "version": "1.0.0",
+    "description": "CLI util for generating a GitHub project information file",
+    "repo": "keindev/media-info",
+    "type": "utils",
+    "links": {
+        "git": "https://github.com/keindev/media-info",
+        "npm": "https://www.npmjs.com/package/media-info",
+        "homepage": "https://github.com/keindev/media-info#readme"
+    },
+    "files": {
+        "logo": "media/logo.svg",
+        "social-preview": "media/social-preview.png"
+    }
+}
