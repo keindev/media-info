@@ -9,5 +9,8 @@
         "npm": "https://www.npmjs.com/package/media-info",
         "homepage": "https://github.com/keindev/media-info#readme"
     },
-    "files": {}
+    "files": {
+        "logo": "media/logo.svg",
+        "social-preview": "media/social-preview.png"
+    }
 }
