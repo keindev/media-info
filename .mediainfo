@@ -1,6 +1,6 @@
 {
     "name": "media-info",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "CLI util for generating a GitHub project information file",
     "repo": "keindev/media-info",
     "type": "utils",
