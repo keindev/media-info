@@ -21,7 +21,8 @@ node_modules/
 .travis.yml
 .yarnclean
 .changelogrc.yaml
-.mediainfo
+.ghinfo
+.dependabot
 jest.config.js
 tsconfig.json
 yarn.lock
