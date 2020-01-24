@@ -27,7 +27,6 @@ jobs:
               api_token: $NPM_TOKEN
               cleanup: false
               edge: true
-              public: true
               on:
                   tags: true
 notifications:
