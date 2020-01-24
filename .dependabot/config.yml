@@ -4,5 +4,7 @@ update_configs:
       directory: '/'
       update_schedule: 'daily'
       target_branch: 'dev'
-      default_assignees: 'keindev'
-      default_labels: 'dependencies'
+      default_assignees:
+          - keindev
+      default_labels:
+          - dependencies
