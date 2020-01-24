@@ -1,18 +1,18 @@
-import { MediaInfo } from '../MediaInfo';
+import { Builder } from '../Builder';
 
 const repo = 'keindev/media-info';
 const type = 'test';
 const paths = ['media/logo.svg', 'media/logo.jpg', 'media/social-preview.png'];
-let builder: MediaInfo;
+let builder: Builder;
 
-describe('MediaInfo', () => {
-    describe('Generate .mediainfo file', () => {
+describe('Builder', () => {
+    describe('Generate .ghinfo file', () => {
         beforeEach(() => {
-            builder = new MediaInfo(process.cwd(), type);
+            builder = new Builder(process.cwd(), type);
         });
 
         it('Build media info structure', () => {
-            const pkg = { name: 'media-info', version: '1.0.0', description: 'test' };
+            const pkg = { name: 'media-info', version: '1.0.0', description: 'test', keywords: ['test'] };
             const info = builder.build(paths, pkg, repo);
 
             expect(info).toStrictEqual({

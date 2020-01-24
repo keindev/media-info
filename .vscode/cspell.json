@@ -52,7 +52,7 @@
         "SPDX",
         "plusplus",
         "cond",
-        "mediainfo",
+        "ghinfo",
         "globby",
         "gitignore"
     ]

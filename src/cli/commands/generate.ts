@@ -1,8 +1,8 @@
 import { Arguments } from 'yargs';
-import { MediaInfo } from '../../MediaInfo';
+import { Builder } from '../../Builder';
 
 export const command = 'generate';
-export const desc = 'Generate .mediainfo file';
+export const desc = 'Generate .ghinfo file';
 export const showInHelp = true;
 export const builder = {
     dir: {
@@ -25,7 +25,7 @@ interface IArguments {
 }
 
 export const handler = ({ dir, type }: Arguments<IArguments>): Promise<void> => {
-    const mediainfo = new MediaInfo(dir, type);
+    const infoBuilder = new Builder(dir, type);
 
-    return mediainfo.generate();
+    return infoBuilder.generate();
 };

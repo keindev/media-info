@@ -1,10 +1,10 @@
-<p align="center"><img width="400" src="https://cdn.jsdelivr.net/gh/keindev/media-info/media/logo.svg" alt="GitHub GraphQL API client for JavaScript"></p>
+<p align="center"><img width="400" src="https://cdn.jsdelivr.net/gh/keindev/ghinfo/media/logo.svg" alt="GitHub GraphQL API client for JavaScript"></p>
 
 <p align="center">
-    <a href="https://travis-ci.com/keindev/media-info"><img src="https://travis-ci.com/keindev/media-info.svg?branch=master" alt="Build Status"></a>
-    <a href="https://codecov.io/gh/keindev/media-info"><img src="https://codecov.io/gh/keindev/media-info/branch/master/graph/badge.svg" /></a>
-    <a href="https://www.npmjs.com/package/media-info"><img alt="npm" src="https://img.shields.io/npm/v/media-info.svg"></a>
-    <a href="https://www.npmjs.com/package/media-info"><img alt="NPM" src="https://img.shields.io/npm/l/media-info.svg"></a>
+    <a href="https://travis-ci.com/keindev/ghinfo"><img src="https://travis-ci.com/keindev/ghinfo.svg?branch=master" alt="Build Status"></a>
+    <a href="https://codecov.io/gh/keindev/ghinfo"><img src="https://codecov.io/gh/keindev/ghinfo/branch/master/graph/badge.svg" /></a>
+    <a href="https://www.npmjs.com/package/ghinfo"><img alt="npm" src="https://img.shields.io/npm/v/ghinfo.svg"></a>
+    <a href="https://www.npmjs.com/package/ghinfo"><img alt="NPM" src="https://img.shields.io/npm/l/ghinfo.svg"></a>
 </p>
 
 CLI util for generating a GitHub project information file
@@ -14,28 +14,28 @@ CLI util for generating a GitHub project information file
 ### Yarn
 
 ```console
-yarn add media-info
+yarn add ghinfo
 ```
 
 ### NPM
 
 ```console
-npm install media-info
+npm install ghinfo
 ```
 
 ## Usage
 
 ```console
-mediainfo --help
+ghinfo --help
 
-mediainfo generate -d media -t utils
+ghinfo generate -d media -t utils
 ```
 
 ## Commands
 
 ### generate
 
-Generate `.mediainfo` file
+Generate `.ghinfo` file
 
 Options:
 

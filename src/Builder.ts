@@ -9,7 +9,7 @@ import { UpdateManager } from 'stdout-update';
 const manager = UpdateManager.getInstance();
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 
-export enum MediaFiles {
+export enum AvailableFiles {
     Icon = 'icon',
     Logo = 'logo',
     Demo = 'demo',
@@ -22,19 +22,20 @@ export interface ILinks {
     homepage?: string;
 }
 
-export interface IMediaInfo {
+export interface IInfoFile {
     name: string;
     repo: string;
     version: string;
     type?: string;
     description: string;
+    keywords?: string[];
     links: ILinks;
     files: {
-        [key in MediaFiles]?: string;
+        [key in AvailableFiles]?: string;
     };
 }
 
-export class MediaInfo {
+export class Builder {
     private dir: string;
     private type: string;
     private message = '';
@@ -60,7 +61,7 @@ export class MediaInfo {
                 if (git && git.repo) {
                     if (paths.length) {
                         await fs.promises.writeFile(
-                            path.relative(process.cwd(), '.mediainfo'),
+                            path.relative(process.cwd(), '.ghinfo'),
                             JSON.stringify(this.build(paths, pkg, git.repo), null, 4)
                         );
                     }
@@ -77,9 +78,9 @@ export class MediaInfo {
         }
     }
 
-    public build(paths: string[], pkg: PackageJson, repo: string): IMediaInfo {
-        const { name, version, description, homepage } = pkg;
-        const availableFiles = Object.values(MediaFiles);
+    public build(paths: string[], pkg: PackageJson, repo: string): IInfoFile {
+        const { name, version, description, homepage, keywords } = pkg;
+        const availableFiles = Object.values(AvailableFiles);
 
         if (!name) throw new Error('Package name is undefined!');
         if (!version) throw new Error('Package name is undefined!');
@@ -89,6 +90,7 @@ export class MediaInfo {
             name,
             version,
             description,
+            keywords,
             repo,
             type: this.type,
             links: {
@@ -99,7 +101,7 @@ export class MediaInfo {
             files: paths.reduce((acc, filePath) => {
                 const { name: fileName } = path.parse(filePath);
 
-                return ~availableFiles.indexOf(fileName as MediaFiles) ? { ...acc, [fileName]: filePath } : acc;
+                return ~availableFiles.indexOf(fileName as AvailableFiles) ? { ...acc, [fileName]: filePath } : acc;
             }, {}),
         };
     }
@@ -113,7 +115,7 @@ export class MediaInfo {
         }, 80);
     }
 
-    private end(msg = [`${figures.tick} .mediainfo created!`]): void {
+    private end(msg = [`${figures.tick} .ghinfo created!`]): void {
         if (this.timer) {
             clearInterval(this.timer);
             manager.update(msg, 0);
