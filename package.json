@@ -32,7 +32,7 @@
   "scripts": {
     "prepare:clean": "rimraf lib coverage",
     "check:lint": "eslint src/**/*.ts --fix",
-    "check:spell": "cspell -c .vscode/cspell.json --no-summary \"*.*\" \"**/*.ts\" \"**/*.js\"",
+    "check:spell": "cspell -c .vscode/cspell.json --no-summary \"README.md\" \"**/*.ts\" \"**/*.js\"",
     "check:test": "jest",
     "test": "npm-run-all check:*",
     "build:ts": "tsc",
