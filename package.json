@@ -61,7 +61,7 @@
     "@typescript-eslint/parser": "^4.16.1",
     "@types/parse-github-url": "^1.0.0",
     "changelog-guru": "^1.0.0",
-    "cspell": "^4.0.46",
+    "cspell": "^5.3.4",
     "eslint": "^7.21.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.1.0",
