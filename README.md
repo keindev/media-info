@@ -11,14 +11,6 @@ CLI util for generating a GitHub project information file
 
 ## Install
 
-### Yarn
-
-```console
-yarn add ghinfo
-```
-
-### NPM
-
 ```console
 npm install ghinfo
 ```
