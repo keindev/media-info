@@ -6,52 +6,31 @@ import path from 'path';
 import readPkg, { PackageJson } from 'read-pkg';
 import { UpdateManager } from 'stdout-update';
 
+import { AvailableMediaFile, IGitHubInfo } from './types';
+
+const TIMEOUT = 80;
+const INDENT = 2;
+
 const manager = UpdateManager.getInstance();
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 
-export enum AvailableFiles {
-  Icon = 'icon',
-  Logo = 'logo',
-  Demo = 'demo',
-  Preview = 'social-preview',
-}
-
-export interface ILinks {
-  git?: string;
-  npm?: string;
-  homepage?: string;
-}
-
-export interface IInfoFile {
-  name: string;
-  repo: string;
-  version: string;
-  type?: string;
-  description: string;
-  keywords?: string[];
-  links: ILinks;
-  files: {
-    [key in AvailableFiles]?: string;
-  };
-}
-
-export class Builder {
-  private dir: string;
-  private type: string;
-  private message = '';
-  private timer: NodeJS.Timeout | null = null;
-  private frameIndex = 0;
+export default class Builder {
+  #dir: string;
+  #type: string;
+  #message = '';
+  #timer: NodeJS.Timeout | null = null;
+  #frame = 0;
 
   constructor(dir: string, type: string) {
-    this.dir = path.relative(process.cwd(), dir);
-    this.type = type;
+    this.#dir = path.relative(process.cwd(), dir);
+    this.#type = type;
   }
 
-  public async generate(): Promise<void> {
+  async generate(): Promise<void> {
     this.start();
 
     try {
-      const paths = await globby([`${this.dir}/**/*.*`], { gitignore: false });
+      const paths = await globby([`${this.#dir}/**/*.*`], { gitignore: false });
       const pkg = await readPkg({ normalize: false });
       const url = typeof pkg.repository === 'object' ? pkg.repository.url : pkg.repository;
 
@@ -60,10 +39,9 @@ export class Builder {
 
         if (git && git.repo) {
           if (paths.length) {
-            await fs.promises.writeFile(
-              path.relative(process.cwd(), '.ghinfo'),
-              JSON.stringify(this.build(paths, pkg, git.repo), null, 4)
-            );
+            const data = JSON.stringify(this.build(paths, pkg, git.repo), null, INDENT);
+
+            await fs.promises.writeFile(path.relative(process.cwd(), '.ghinfo'), data);
           }
 
           this.end();
@@ -78,9 +56,9 @@ export class Builder {
     }
   }
 
-  public build(paths: string[], pkg: PackageJson, repo: string): IInfoFile {
+  build(paths: string[], pkg: PackageJson, repo: string): IGitHubInfo {
     const { name, version, description, homepage, keywords } = pkg;
-    const availableFiles = Object.values(AvailableFiles);
+    const availableFiles = Object.values(AvailableMediaFile);
 
     if (!name) throw new Error('Package name is undefined!');
     if (!version) throw new Error('Package name is undefined!');
@@ -92,7 +70,7 @@ export class Builder {
       description,
       keywords,
       repo,
-      type: this.type,
+      type: this.#type,
       links: {
         git: `https://github.com/${repo}`,
         ...(pkg.isPrivate ? {} : { npm: `https://www.npmjs.com/package/${name}` }),
@@ -101,23 +79,22 @@ export class Builder {
       files: paths.reduce((acc, filePath) => {
         const { name: fileName } = path.parse(filePath);
 
-        return ~availableFiles.indexOf(fileName as AvailableFiles) ? { ...acc, [fileName]: filePath } : acc;
+        return ~availableFiles.indexOf(fileName as AvailableMediaFile) ? { ...acc, [fileName]: filePath } : acc;
       }, {}),
     };
   }
 
   private start(): void {
     manager.hook();
-    this.timer = setInterval(() => {
-      const frame = frames[(this.frameIndex = ++this.frameIndex % frames.length)];
 
-      manager.update([`${frame} process: ${this.message}`]);
-    }, 80);
+    this.#timer = setInterval(() => {
+      manager.update([`${frames[(this.#frame = ++this.#frame % frames.length)]} process: ${this.#message}`]);
+    }, TIMEOUT);
   }
 
   private end(msg = [`${figures.tick} .ghinfo created!`]): void {
-    if (this.timer) {
-      clearInterval(this.timer);
+    if (this.#timer) {
+      clearInterval(this.#timer);
       manager.update(msg, 0);
       manager.unhook(false);
     }

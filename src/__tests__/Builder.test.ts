@@ -1,4 +1,4 @@
-import { Builder } from '../Builder';
+import Builder from '../Builder';
 
 const repo = 'keindev/media-info';
 const type = 'test';
