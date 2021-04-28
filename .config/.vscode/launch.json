@@ -1,0 +1,15 @@
+{
+  "configurations": [
+    {
+      "name": "Generate mediainfo",
+      "type": "node",
+      "request": "launch",
+      "outputCapture": "std",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["--nolazy", "--inspect-brk=9229", "bin/mediainfo"],
+      "port": 9229
+    }
+  ]
+}

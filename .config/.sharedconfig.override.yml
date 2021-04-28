@@ -1,0 +1,4 @@
+overrideScripts:
+  "generate:ghinfo": "node bin/ghinfo generate -d media -t utils"
+
+ignoreDependencies: ["ghinfo"]
