@@ -1,37 +1,46 @@
 import figures from 'figures';
-import fs from 'fs';
+import { promises as fs } from 'fs';
 import globby from 'globby';
 import gh from 'parse-github-url';
 import path from 'path';
-import readPkg, { PackageJson } from 'read-pkg';
 import { UpdateManager } from 'stdout-update';
+import { PackageJson } from 'type-fest';
 
 import { AvailableMediaFile, IGitHubInfo } from './types';
 
 const TIMEOUT = 80;
 const INDENT = 2;
 
+/** @ignore */
 const manager = UpdateManager.getInstance();
+/** @ignore */
 const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 
-export default class Builder {
+/** Generate .ghinfo files with repo, npm package and media information */
+export class Builder {
   #dir: string;
   #type: string;
   #message = '';
   #timer: NodeJS.Timeout | null = null;
   #frame = 0;
 
+  /**
+   * @param dir - Directory with media files
+   * @param type - Repository content type
+   */
   constructor(dir: string, type: string) {
     this.#dir = path.relative(process.cwd(), dir);
     this.#type = type;
   }
 
+  /** create or rewrite .ghinfo file */
   async generate(): Promise<void> {
     this.start();
 
     try {
       const paths = await globby([`${this.#dir}/**/*.*`], { gitignore: false });
-      const pkg = await readPkg({ normalize: false });
+      const data = await fs.readFile(path.resolve(process.cwd(), 'package.json'), 'utf8');
+      const pkg = JSON.parse(data) as PackageJson;
       const url = typeof pkg.repository === 'object' ? pkg.repository.url : pkg.repository;
 
       if (url) {
@@ -39,9 +48,10 @@ export default class Builder {
 
         if (git && git.repo) {
           if (paths.length) {
-            const data = JSON.stringify(this.build(paths, pkg, git.repo), null, INDENT);
-
-            await fs.promises.writeFile(path.relative(process.cwd(), '.ghinfo'), data);
+            await fs.writeFile(
+              path.relative(process.cwd(), '.ghinfo'),
+              JSON.stringify(this.build(paths, pkg, git.repo), null, INDENT)
+            );
           }
 
           this.end();
@@ -56,6 +66,13 @@ export default class Builder {
     }
   }
 
+  /**
+   * Build .ghinfo file structure
+   * @param paths - media file paths
+   * @param pkg - package.json content
+   * @param repo - repository name
+   * @returns .ghinfo content
+   */
   build(paths: string[], pkg: PackageJson, repo: string): IGitHubInfo {
     const { name, version, description, homepage, keywords } = pkg;
     const availableFiles = Object.values(AvailableMediaFile);
@@ -73,7 +90,7 @@ export default class Builder {
       type: this.#type,
       links: {
         git: `https://github.com/${repo}`,
-        ...(pkg.isPrivate ? {} : { npm: `https://www.npmjs.com/package/${name}` }),
+        ...(pkg.private ? {} : { npm: `https://www.npmjs.com/package/${name}` }),
         ...(homepage ? { homepage } : {}),
       },
       files: paths.reduce((acc, filePath) => {
@@ -106,3 +123,5 @@ export default class Builder {
     throw error;
   }
 }
+
+export default Builder;

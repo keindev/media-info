@@ -1,6 +1,6 @@
 import { Arguments } from 'yargs';
 
-import Builder from '../../Builder';
+import Builder from '../../index';
 
 export const command = 'generate';
 export const desc = 'Generate .ghinfo file';
