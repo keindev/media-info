@@ -1,73 +1,76 @@
-# BREAKING CHANGES
-
--   Add files list fetching [`2fa9a9a`](https://github.com/keindev/media-info/commit/2fa9a9ac99c1e1e6cff2934f66bcde9011d19dc4)
-
 # Important Changes
 
 ## Engines
 
--   Added **node** with `>=12.0.0`
-
-## License
-
-Source code now under `MIT` license.
+- Bumped **node** from `12.0.0` to `14.0.0`
 
 ## Dependencies
 
--   Added **[@types/parse-github-url](https://www.npmjs.com/package/@types/parse-github-url/v/1.0.0)** with `^1.0.0`
--   Added **[figures](https://www.npmjs.com/package/figures/v/3.1.0)** with `^3.1.0`
--   Added **[globby](https://www.npmjs.com/package/globby/v/11.0.0)** with `^11.0.0`
--   Added **[parse-github-url](https://www.npmjs.com/package/parse-github-url/v/1.0.2)** with `^1.0.2`
--   Added **[read-pkg](https://www.npmjs.com/package/read-pkg/v/5.2.0)** with `^5.2.0`
--   Added **[stdout-update](https://www.npmjs.com/package/stdout-update/v/1.3.7)** with `^1.3.7`
--   Added **[yargs](https://www.npmjs.com/package/yargs/v/15.1.0)** with `^15.1.0`
+<details>
+<summary>Dependencies</summary>
 
-## Dev Dependencies
+- Bumped **[figures](https://www.npmjs.com/package/figures/v/3.2.0)** from `3.1.0` to `3.2.0`
+- Bumped **[globby](https://www.npmjs.com/package/globby/v/11.0.3)** from `11.0.0` to `11.0.3`
+- Bumped **[stdout-update](https://www.npmjs.com/package/stdout-update/v/1.6.5)** from `1.3.7` to `1.6.5`
+- Bumped **[yargs](https://www.npmjs.com/package/yargs/v/16.2.0)** from `15.1.0` to `16.2.0`
+- Removed **[@types/parse-github-url](https://www.npmjs.com/package/@types/parse-github-url/v/1.0.0)**, with `^1.0.0`
+- Removed **[read-pkg](https://www.npmjs.com/package/read-pkg/v/5.2.0)**, with `^5.2.0`
 
--   Added **[@types/jest](https://www.npmjs.com/package/@types/jest/v/24.9.1)** with `^24.9.1`
--   Added **[@types/node](https://www.npmjs.com/package/@types/node/v/13.5.0)** with `^13.5.0`
--   Added **[@types/yargs](https://www.npmjs.com/package/@types/yargs/v/15.0.1)** with `^15.0.1`
--   Added **[@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin/v/2.17.0)** with `^2.17.0`
--   Added **[@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser/v/2.17.0)** with `^2.17.0`
--   Added **[changelog-guru](https://www.npmjs.com/package/changelog-guru/v/1.0.0)** with `^1.0.0`
--   Added **[cspell](https://www.npmjs.com/package/cspell/v/4.0.44)** with `^4.0.44`
--   Added **[eslint](https://www.npmjs.com/package/eslint/v/6.8.0)** with `^6.8.0`
--   Added **[eslint-config-airbnb-base](https://www.npmjs.com/package/eslint-config-airbnb-base/v/14.0.0)** with `^14.0.0`
--   Added **[eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier/v/6.9.0)** with `^6.9.0`
--   Added **[eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import/v/2.20.0)** with `^2.20.0`
--   Added **[eslint-plugin-jest](https://www.npmjs.com/package/eslint-plugin-jest/v/23.6.0)** with `^23.6.0`
--   Added **[husky](https://www.npmjs.com/package/husky/v/4.2.1)** with `^4.2.1`
--   Added **[jest](https://www.npmjs.com/package/jest/v/25.1.0)** with `^25.1.0`
--   Added **[npm-run-all](https://www.npmjs.com/package/npm-run-all/v/4.1.5)** with `^4.1.5`
--   Added **[prettier](https://www.npmjs.com/package/prettier/v/1.19.1)** with `^1.19.1`
--   Added **[ts-jest](https://www.npmjs.com/package/ts-jest/v/25.0.0)** with `^25.0.0`
--   Added **[typescript](https://www.npmjs.com/package/typescript/v/3.7.5)** with `3.7.5`
+</details>
 
-# Features
+<details>
+<summary>Dev Dependencies</summary>
 
--   Add CLI command [`e3522b4`](https://github.com/keindev/media-info/commit/e3522b4415bbf9b3bafa86f90270aa7bc02c8692)
--   Add \.mediainfo building [`ce1cdc9`](https://github.com/keindev/media-info/commit/ce1cdc9862686b069371198c02f94c1c3e7732b1)
+- Added **[@babel/plugin-transform-runtime](https://www.npmjs.com/package/@babel/plugin-transform-runtime/v/7.13.15)** with `^7.13.15`
+- Added **[@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env/v/7.13.15)** with `^7.13.15`
+- Added **[@tagproject/ts-package-shared-config](https://www.npmjs.com/package/@tagproject/ts-package-shared-config/v/1.5.8)** with `^1.5.8`
+- Added **[@types/parse-github-url](https://www.npmjs.com/package/@types/parse-github-url/v/1.0.0)** with `^1.0.0`
+- Added **[babel-jest](https://www.npmjs.com/package/babel-jest/v/26.6.3)** with `^26.6.3`
+- Added **[eslint-plugin-node](https://www.npmjs.com/package/eslint-plugin-node/v/11.1.0)** with `^11.1.0`
+- Added **[eslint-plugin-optimize-regex](https://www.npmjs.com/package/eslint-plugin-optimize-regex/v/1.2.0)** with `^1.2.0`
+- Added **[eslint-plugin-promise](https://www.npmjs.com/package/eslint-plugin-promise/v/5.1.0)** with `^5.1.0`
+- Added **[rimraf](https://www.npmjs.com/package/rimraf/v/3.0.2)** with `^3.0.2`
+- Added **[type-fest](https://www.npmjs.com/package/type-fest/v/1.0.2)** with `^1.0.2`
+- Added **[typedoc](https://www.npmjs.com/package/typedoc/v/0.20.36)** with `^0.20.36`
+- Added **[typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown/v/3.7.2)** with `^3.7.2`
+- Bumped **[@types/jest](https://www.npmjs.com/package/@types/jest/v/26.0.23)** from `24.9.1` to `26.0.23`
+- Bumped **[@types/node](https://www.npmjs.com/package/@types/node/v/15.0.1)** from `13.5.0` to `15.0.1`
+- Bumped **[@types/yargs](https://www.npmjs.com/package/@types/yargs/v/16.0.1)** from `15.0.1` to `16.0.1`
+- Bumped **[@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin/v/4.22.0)** from `2.17.0` to `4.22.0`
+- Bumped **[@typescript-eslint/parser](https://www.npmjs.com/package/@typescript-eslint/parser/v/4.22.0)** from `2.17.0` to `4.22.0`
+- Bumped **[changelog-guru](https://www.npmjs.com/package/changelog-guru/v/2.3.0)** from `1.0.0` to `2.3.0`
+- Bumped **[cspell](https://www.npmjs.com/package/cspell/v/5.3.12)** from `4.0.46` to `5.3.12`
+- Bumped **[eslint](https://www.npmjs.com/package/eslint/v/7.25.0)** from `6.8.0` to `7.25.0`
+- Bumped **[eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier/v/8.3.0)** from `6.9.0` to `8.3.0`
+- Bumped **[eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import/v/2.22.1)** from `2.20.0` to `2.22.1`
+- Bumped **[eslint-plugin-jest](https://www.npmjs.com/package/eslint-plugin-jest/v/24.3.6)** from `23.6.0` to `24.3.6`
+- Bumped **[husky](https://www.npmjs.com/package/husky/v/6.0.0)** from `4.2.1` to `6.0.0`
+- Bumped **[jest](https://www.npmjs.com/package/jest/v/26.6.3)** from `25.1.0` to `26.6.3`
+- Bumped **[prettier](https://www.npmjs.com/package/prettier/v/2.2.1)** from `1.19.1` to `2.2.1`
+- Bumped **[ts-jest](https://www.npmjs.com/package/ts-jest/v/26.5.5)** from `25.0.0` to `26.5.5`
+- Bumped **[typescript](https://www.npmjs.com/package/typescript/v/4.2.4)** from `3.7.5` to `4.2.4`
+- Removed **[eslint-config-airbnb-base](https://www.npmjs.com/package/eslint-config-airbnb-base/v/14.0.0)**, with `^14.0.0`
 
-# Bug Fixes
+</details>
 
--   Fix bin name, add tags [`a4dde16`](https://github.com/keindev/media-info/commit/a4dde166d1a6613eeae78ffaf952535a103d4042)
--   Fix build method [`7e0d5b4`](https://github.com/keindev/media-info/commit/7e0d5b41b6f60a62c11bb9265f0ff61e9ad423c8)
--   Fix command alising [`695bd19`](https://github.com/keindev/media-info/commit/695bd19bfa986e3a7536df336e412e08af49e07d)
+# :bug: Bug Fixes
 
-# Internal changes
+- Fix spell checking [`8bc3d9b`](https://github.com/keindev/ghinfo/commit/8bc3d9bc21235e02febf7baeb123f49f20d248d1)
 
--   **[Media]** Add media files [`3883c40`](https://github.com/keindev/media-info/commit/3883c40efbdb98ea4ad5c1c6e1e55c21d96c868c)
--   **[Mediainfo]** Fix media dir [`4acad6c`](https://github.com/keindev/media-info/commit/4acad6cdc29bc8098975f95da4841e11251682c6)
--   **[Readme]** Add readme file [`479b990`](https://github.com/keindev/media-info/commit/479b990299b743a9811e252c96e693de3b4f4bf5)
--   Add default tests [`37b5cef`](https://github.com/keindev/media-info/commit/37b5cefba30d575516b2b4f9c56faac80b7339c7)
--   Add \.mediainfo [`ea5afd9`](https://github.com/keindev/media-info/commit/ea5afd94ca76b96abd480cafdc76ff12d0be88d5)
--   Fix build [`6830506`](https://github.com/keindev/media-info/commit/6830506c7d948a8998139a00891823f5d18647f0)
--   Fix build flow [`7fb2c11`](https://github.com/keindev/media-info/commit/7fb2c11cfe7356d716069bc8aabbd4de2fb26c63)
--   Fix project desc [`fba2e18`](https://github.com/keindev/media-info/commit/fba2e18558c3d7001cd4e893ec5b607782965525)
+# :memo: Internal changes
+
+- Remove configs, add `standard-shared-config` [`d4c4420`](https://github.com/keindev/ghinfo/commit/d4c4420d803c83a2ffeee46ad25ecc13e7ee1403)
+- Rebuild configs [`b7e39b3`](https://github.com/keindev/ghinfo/commit/b7e39b367a2b60a32c50797dd6d5155c591b6a15)
+- Remove license, add badge [`113be58`](https://github.com/keindev/ghinfo/commit/113be5805b63192c99d14a203f452ab5e30a8102)
+
+# :wrench: Code Refactoring
+
+- Update eslint conf, refactor code [`25a78ef`](https://github.com/keindev/ghinfo/commit/25a78ef6887ba1da64e9c1dc5738b7573c842077)
+- Refactor files after switching to `shared-config` [`d1d4846`](https://github.com/keindev/ghinfo/commit/d1d4846b0cce7585a817ba583e48a2fb12974fd3)
 
 ---
 
 # Contributors
 
-[![@keindev](https://avatars3.githubusercontent.com/u/4527292?v=4&size=40)](https://github.com/keindev)
-[![@mergify[bot]](https://avatars1.githubusercontent.com/in/10562?v=4&size=40)](https://github.com/mergify%5Bbot%5D)
+[![@mergify[bot]](https://avatars.githubusercontent.com/in/10562?v=4&s=40)](https://github.com/mergify%5Bbot%5D)
+[![@keindev](https://avatars.githubusercontent.com/u/4527292?v=4&s=40)](https://github.com/keindev)
