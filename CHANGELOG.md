@@ -22,7 +22,7 @@
 <summary>Dev Dependencies</summary>
 
 - Added **[@babel/plugin-transform-runtime](https://www.npmjs.com/package/@babel/plugin-transform-runtime/v/7.13.15)** with `^7.13.15`
-- Added **[@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env/v/7.13.15)** with `^7.13.15`
+- Added **[@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env/v/7.14.0)** with `^7.14.0`
 - Added **[@tagproject/ts-package-shared-config](https://www.npmjs.com/package/@tagproject/ts-package-shared-config/v/1.5.8)** with `^1.5.8`
 - Added **[@types/parse-github-url](https://www.npmjs.com/package/@types/parse-github-url/v/1.0.0)** with `^1.0.0`
 - Added **[babel-jest](https://www.npmjs.com/package/babel-jest/v/26.6.3)** with `^26.6.3`
