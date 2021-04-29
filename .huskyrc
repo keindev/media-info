@@ -1,6 +1,0 @@
-{
-    "hooks": {
-        "pre-commit": "yarn util:pre-commit",
-        "commit-msg": "yarn util:commit-msg"
-    }
-}
