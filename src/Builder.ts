@@ -3,7 +3,7 @@ import { promises as fs } from 'fs';
 import globby from 'globby';
 import gh from 'parse-github-url';
 import path from 'path';
-import { UpdateManager } from 'stdout-update';
+import UpdateManager from 'stdout-update';
 import { PackageJson } from 'type-fest';
 
 import { AvailableMediaFile, IGitHubInfo } from './types';

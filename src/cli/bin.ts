@@ -1,3 +1,7 @@
 import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import * as generate from './commands/generate';
 
-yargs.commandDir('commands').demandCommand().wrap(yargs.terminalWidth()).help().parse();
+const argv = yargs(hideBin(process.argv));
+
+argv.command(generate).demandCommand().wrap(argv.terminalWidth()).help().parse();

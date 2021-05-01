@@ -11,7 +11,7 @@
     "util"
   ],
   "repo": "keindev/ghinfo",
-  "type": "utils",
+  "type": "",
   "links": {
     "git": "https://github.com/keindev/ghinfo",
     "npm": "https://www.npmjs.com/package/ghinfo",

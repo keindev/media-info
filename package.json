@@ -3,6 +3,11 @@
   "version": "1.0.8",
   "description": "CLI util for generating a GitHub project information file",
   "homepage": "https://github.com/keindev/ghinfo#readme",
+  "license": "MIT",
+  "author": {
+    "name": "Daniil Ryazanov",
+    "email": "kein@tagproject.ru"
+  },
   "keywords": [
     "automated",
     "repo",
@@ -11,11 +16,11 @@
     "github",
     "util"
   ],
+  "type": "module",
   "main": "lib/index.js",
-  "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
-    "ghinfo": "bin/ghinfo"
+    "ghinfo": "bin/ghinfo.js"
   },
   "repository": {
     "type": "git",
@@ -24,11 +29,6 @@
   "bugs": {
     "url": "https://github.com/keindev/ghinfo/issues"
   },
-  "author": {
-    "name": "Daniil Ryazanov",
-    "email": "kein@tagproject.ru"
-  },
-  "license": "MIT",
   "scripts": {
     "build": "npm-run-all build:*",
     "build:ts": "rimraf lib && tsc --extendedDiagnostics",
@@ -44,7 +44,7 @@
     "prepare:husky": "husky install",
     "release": "npm-run-all prepare check test build generate",
     "test": "npm-run-all test:*",
-    "test:jest": "jest"
+    "test:jest": "node --harmony node_modules/.bin/jest"
   },
   "engines": {
     "node": ">=14.0.0"
@@ -53,13 +53,13 @@
     "figures": "^3.2.0",
     "globby": "^11.0.3",
     "parse-github-url": "^1.0.2",
-    "stdout-update": "^1.6.5",
+    "stdout-update": "^2.0.0",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.13.15",
     "@babel/preset-env": "^7.14.0",
-    "@tagproject/ts-package-shared-config": "^1.5.8",
+    "@tagproject/ts-package-shared-config": "^2.0.2",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.0.1",
     "@types/parse-github-url": "^1.0.0",
@@ -67,7 +67,7 @@
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "babel-jest": "^26.6.3",
-    "changelog-guru": "^2.3.0",
+    "changelog-guru": "^2.3.1",
     "cspell": "^5.3.12",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
