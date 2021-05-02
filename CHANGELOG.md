@@ -1,7 +1,3 @@
-# BREAKING CHANGES
-
-- Move to ESM [`4e53e0f`](https://github.com/keindev/ghinfo/commit/4e53e0fe71c47281262feb7058e9918b71e008b6)
-
 # Important Changes
 
 ## Dependencies
@@ -9,17 +5,18 @@
 <details>
 <summary>Dependencies</summary>
 
-- Bumped **[stdout-update](https://www.npmjs.com/package/stdout-update/v/2.0.0)** from `1.6.5` to `2.0.0`
+- Bumped **[yargs](https://www.npmjs.com/package/yargs/v/17.0.0)** from `16.2.0` to `17.0.0`
 
 </details>
 
-<details>
-<summary>Dev Dependencies</summary>
+# :bug: Bug Fixes
 
-- Bumped **[@tagproject/ts-package-shared-config](https://www.npmjs.com/package/@tagproject/ts-package-shared-config/v/2.0.2)** from `1.5.8` to `2.0.2`
-- Bumped **[changelog-guru](https://www.npmjs.com/package/changelog-guru/v/2.3.1)** from `2.3.0` to `2.3.1`
+- Fix bin path [`0b90fa6`](https://github.com/keindev/ghinfo/commit/0b90fa60eb9fd53238ae9411cef3ac07a68847a3)
 
-</details>
+# :memo: Internal changes
+
+- Add description to readme [`49169b0`](https://github.com/keindev/ghinfo/commit/49169b01287303f75a8664e09894fadb2c64d06e)
+- Remove license badge, fix description [`4ade9dc`](https://github.com/keindev/ghinfo/commit/4ade9dcabd82d532b50f0256dfb52dc86071c027)
 
 ---
 
