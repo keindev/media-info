@@ -1,6 +1,7 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import * as generate from './commands/generate';
+
+import generate from './commands/generate';
 
 const argv = yargs(hideBin(process.argv));
 
