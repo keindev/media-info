@@ -31,7 +31,7 @@
   },
   "scripts": {
     "build": "npm-run-all build:*",
-    "build:ts": "rimraf lib && tsc --extendedDiagnostics",
+    "build:ts": "rimraf lib && tsc --extendedDiagnostics && node scripts/esm-post-process.js",
     "check": "npm-run-all check:*",
     "check:lint": "rimraf coverage && eslint \"src/**\" --ext .ts",
     "check:spell": "cspell -c .vscode/cspell.json --no-summary \"README.md\" \"src/**/*.ts\"",

@@ -25,6 +25,7 @@ jest.modules.json
 media/
 node_modules/
 src/
+scripts/
 tsconfig.eslint.json
 tsconfig.json
 typedoc.json
