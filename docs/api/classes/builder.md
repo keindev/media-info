@@ -19,7 +19,7 @@ Generate .ghinfo files with repo, npm package and media information
 
 \+ **new Builder**(`dir`: *string*, `type`: *string*): [*Builder*](builder.md)
 
-#### Parameters:
+#### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
@@ -36,7 +36,7 @@ Generate .ghinfo files with repo, npm package and media information
 
 Build .ghinfo file structure
 
-#### Parameters:
+#### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |

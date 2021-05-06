@@ -12,7 +12,9 @@
         "--experimental-specifier-resolution=node",
         "--nolazy",
         "--inspect-brk=9229",
-        "bin/ghinfo",
+        "--loader",
+        "ts-node/esm",
+        "src/cli/bin.ts",
         "generate"
       ],
       "port": 9229

@@ -25,9 +25,5 @@ export default {
       default: '',
     },
   },
-  handler: ({ dir, type }: Arguments<IArguments>): Promise<void> => {
-    const infoBuilder = new Builder(dir, type);
-
-    return infoBuilder.generate();
-  },
+  handler: ({ dir, type }: Arguments<IArguments>): Promise<void> => new Builder(dir, type).generate(),
 };

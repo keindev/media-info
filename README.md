@@ -14,15 +14,35 @@ CLI util for generating a GitHub project information file.
 ## Install
 
 ```console
-npm install ghinfo
+npm install ghinfo --save-dev
 ```
 
 ## Usage
 
 ```console
-ghinfo --help
-
 ghinfo generate -d media -t utils
+```
+
+Generate `.ghinfo` with logo, social-preview and package description:
+
+```json
+{
+  "name": "ghinfo",
+  "version": "2.0.3",
+  "description": "CLI util for generating a GitHub project information file",
+  "keywords": ["automated", "repo", "info", "cli", "github", "util"],
+  "repo": "keindev/ghinfo",
+  "type": "utils",
+  "links": {
+    "git": "https://github.com/keindev/ghinfo",
+    "npm": "https://www.npmjs.com/package/ghinfo",
+    "homepage": "https://github.com/keindev/ghinfo#readme"
+  },
+  "files": {
+    "logo": "media/logo.svg",
+    "social-preview": "media/social-preview.png"
+  }
+}
 ```
 
 ## API
